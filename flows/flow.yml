@@ -91,6 +91,6 @@ definition:
     entry_point: "opero_agent"
   
   yaml_definition: |
-  name: OPERO Incident Triage Flow
-  description: AI agent for incident triage
-  version: v1
+    name: OPERO Incident Triage Flow
+    description: AI agent for incident triage
+    version: v1
