@@ -13,7 +13,7 @@ definition:
       prompt_id: "opero_promt"  # References a prompt defined below
       inputs:
         - "context:goal" # Input from user or previous component
-        - "context:issue" 
+        
       toolset: 
         - create_issue_note
         - update_issue
@@ -89,3 +89,8 @@ definition:
   # Define the entry point for your flow
   flow:
     entry_point: "opero_agent"
+  
+  yaml_definition: |
+  name: OPERO Incident Triage Flow
+  description: AI agent for incident triage
+  version: v1
