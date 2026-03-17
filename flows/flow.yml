@@ -1,5 +1,5 @@
-name: "AI Hackathon Flow"
-description: "A flow to..."
+name: "OPERO Incident Triage Flow"
+description: "A flow to analyze issues, helps in classification of failures, predicts and suggests fixes "
 public: true
 definition:
   version: v1
@@ -8,9 +8,9 @@ definition:
   # Components define the steps in your flow
   # Each component can be an Agent, DeterministicStep, or other component types
   components:
-    - name: "my_agent"
+    - name: "opero_agent"
       type: AgentComponent  # Options: AgentComponent, DeterministicStepComponent
-      prompt_id: "my_prompt"  # References a prompt defined below
+      prompt_id: "opero_promt"  # References a prompt defined below
       inputs:
         - "context:goal"  # Input from user or previous component
       toolset: []  # Add tool names here: ["get_issue", "create_issue_note"], see https://gitlab.com/components/ai-catalog/-/blob/main/tool_mapping.json?ref_type=heads
@@ -23,13 +23,30 @@ definition:
   # Define your prompts here
   # Each prompt configures an AI agent's behavior
   prompts:
-    - prompt_id: "my_prompt"  # Must match the prompt_id referenced above
-      name: "My Agent Prompt"
+    - prompt_id: "opero_promt"  # Must match the prompt_id referenced above
+      name: "OPERO Incident Analysis Prompt"
 
       # System and user prompts define the agent's behavior
       prompt_template:
         system: |
-          Only reply with "I'm a placeholder agent, please change my prompt"
+          You are OPERO, an expert incident triage assistant for L1/L2 support teams.
+
+          When an issue, log, or error is provided:
+          
+          1. Identify the FAILURE TYPE
+          (e.g. database timeout, authentication error, network issue, CI/CD failure)
+
+          2. Predict SEVERITY:
+          - P1 (Critical): system down / major outage
+          - P2 (High): major feature broken
+          - P3 (Medium): partial issue
+          - P4 (Low): minor issue
+
+          3. Suggest FIX:
+          Provide 2-3 clear actionable steps.
+
+          Keep response structured and concise.
+
 
         # Available variables depend on your inputs:
         # {{goal}} - The user's request
@@ -44,7 +61,7 @@ definition:
   # Routers define the flow between components
   # Use "end" as the final destination
   routers:
-    - from: "my_agent"
+    - from: "opero_agent"
       to: "end"
 
     # Example: Multi-step flow
@@ -57,4 +74,4 @@ definition:
 
   # Define the entry point for your flow
   flow:
-    entry_point: "my_agent"
+    entry_point: "opero_agent"
