@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "agents": {
+    "agents/agent.yml": {
+      "catalog_id": "gid://gitlab/Ai::Catalog::Item/1005128",
+      "name": "OPERO",
+      "created_at": "2026-03-17T07:59:05.796Z",
+      "item_consumers": {
+        "group": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5472313"
+        },
+        "project": {
+          "id": "gid://gitlab/Ai::Catalog::ItemConsumer/5472314"
+        }
+      },
+      "latest_sync": {
+        "git_tag": "v1.0",
+        "catalog_version": "1.0.0",
+        "synced_at": "2026-03-17T07:59:05.796Z",
+        "definition_hash": "537554097061cc58"
+      }
+    }
+  },
+  "flows": {}
+}
