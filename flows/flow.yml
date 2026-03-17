@@ -13,7 +13,10 @@ definition:
       prompt_id: "opero_promt"  # References a prompt defined below
       inputs:
         - "context:goal"  # Input from user or previous component
-      toolset: []  # Add tool names here: ["get_issue", "create_issue_note"], see https://gitlab.com/components/ai-catalog/-/blob/main/tool_mapping.json?ref_type=heads
+      toolset: 
+        - create_issue_note
+        - update_issue
+        - set_task_status # Add tool names here: ["get_issue", "create_issue_note"], see https://gitlab.com/components/ai-catalog/-/blob/main/tool_mapping.json?ref_type=heads
 
       # Optional: UI logging
       ui_log_events:
@@ -47,6 +50,16 @@ definition:
 
           Keep response structured and concise.
 
+          You must also take actions:
+          
+          1. Add a comment to the issue using create_issue_note with your full analysis.
+          
+          2. Update the issue using update_issue:
+            - Add severity (P1, P2, etc.) in the title or description.
+          
+          3. Set task status using set_task_status:
+            - If severity is P1 → mark as "in_progress"
+            - Else → mark as "to_do"
 
         # Available variables depend on your inputs:
         # {{goal}} - The user's request
