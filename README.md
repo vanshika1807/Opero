@@ -1,12 +1,12 @@
 # OPERO 🚀
 
-AI-powered Incident Triage Agent for L1/L2 Support Teams
+This is an AI-powered powered tool that helps the L1 and L2 support teams during issue triaging, RCA documantionation creation plus this agent can help the team in ahering to the SLA/SLO/SLI
 
 ---
 
 ## 🧩 Problem
 
-L1/L2 support teams spend significant time manually analyzing logs, identifying failure types, and deciding severity. This delays resolution and increases system downtime.
+L1/L2 support teams spend a good amount time in manually analyzing logs, identifying failure types, deciding severity & sometimes there can similar cases & issues that might have hanppened before but team is not able to recall it. This delays resolution and increases system downtime & MTTR
 
 ---
 
@@ -16,22 +16,23 @@ OPERO is an AI agent that automates incident triage by:
 
 * Identifying failure type
 * Predicting severity (P1–P4)
-* Suggesting actionable fixes
+* gives the user a report, on what is wrong
+* plus it gives the proper documention & a guidance to adhere to the SLAs
 
 ---
 
 ## ⚙️ How it works
 
-1. User provides an issue or log snippet
+1. The user tells OPERO about the problem
 2. OPERO analyzes the problem
-3. Returns structured triage output
+3. OPERO gives the user a report, on what is wrong
 
 ---
 
 ## 📊 Example
 
 **Input:**
-Login API failing with 500 error and DB timeout
+The login API is not working and is giving a 500 error and a database timeout
 
 **Output:**
 
@@ -48,16 +49,16 @@ Login API failing with 500 error and DB timeout
 
 ## 🚀 Impact
 
-* Reduces debugging time
+* It saves time when trying to figure out what is wrong
 * Speeds up incident resolution
-* Improves developer productivity
+* It makes the developers more productive
 
 ---
 
 ## 🛠️ Tech Stack
 
 * GitLab Duo Agent Platform
-* YAML-based agent + flow configuration
+* It uses YAML to configure the agent and the flow
 * AI-driven analysis
 
 ---

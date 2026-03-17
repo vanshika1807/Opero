@@ -4,9 +4,7 @@ public: true
 definition:
   version: v1
   environment: ambient
-  
-  trigger:
-    event: issue_assigned
+
   # Components define the steps in your flow
   # Each component can be an Agent, DeterministicStep, or other component types
   components:
