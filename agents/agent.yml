@@ -32,8 +32,8 @@ system_prompt: |
      - Next Step: [immediate action]
 
   Always maintain a calm, clear, and professional tone.
-  If the log is incomplete or unclear, ask the user for the missing details
-  before making assumptions.
+  Keep the response short, structured, and operationally useful.
+  Do NOT include long explanations, bullet lists, or sections.
 tools:
   - read_file
   - read_files
