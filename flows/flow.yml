@@ -1,96 +1,32 @@
-name: "OPERO Incident Triage Flow"
-description: "A flow to analyze issues, helps in classification of failures, predicts and suggests fixes "
-public: true
-definition:
-  version: v1
-  environment: ambient
+name: OPERO Incident Flow
+description: >
+  Automatically triages pipeline failures, creates incidents,
+  and notifies the team when a GitLab pipeline fails.
 
-  # Components define the steps in your flow
-  # Each component can be an Agent, DeterministicStep, or other component types
-  components:
-    - name: "opero_agent"
-      type: AgentComponent  # Options: AgentComponent, DeterministicStepComponent
-      prompt_id: "opero_promt"  # References a prompt defined below
-      inputs:
-        - "context:goal" # Input from user or previous component
-        
-      toolset: 
-        - create_issue_note
-        - update_issue
-        - set_task_status # Add tool names here: ["get_issue", "create_issue_note"], see https://gitlab.com/components/ai-catalog/-/blob/main/tool_mapping.json?ref_type=heads
+on:
+  pipeline:
+    status:
+      - failed
 
-      # Optional: UI logging
-      ui_log_events:
-        - on_agent_final_answer
-        - on_tool_execution_success
-  
-  # Define your prompts here
-  # Each prompt configures an AI agent's behavior
-  prompts:
-    - prompt_id: "opero_promt"  # Must match the prompt_id referenced above
-      name: "OPERO Incident Analysis Prompt"
+steps:
+  - name: analyze_failure
+    agent: OPERO
+    prompt: |
+      A pipeline has just failed in this project.
+      Pipeline details: {{ pipeline.url }}
+      Branch: {{ pipeline.ref }}
+      Failed at: {{ pipeline.created_at }}
 
-      # System and user prompts define the agent's behavior
-      prompt_template:
-        system: |
-          You are OPERO, an expert incident triage assistant for L1/L2 support teams.
+      Please analyze this as an incident:
+      1. Identify the failure type
+      2. Assign severity P1-P4
+      3. Suggest immediate fix steps
+      4. Generate a triage summary
 
-          When an issue, log, or error is provided:
-          
-          1. Identify the FAILURE TYPE
-          (e.g. database timeout, authentication error, network issue, CI/CD failure)
-
-          2. Predict SEVERITY:
-          - P1 (Critical): system down / major outage
-          - P2 (High): major feature broken
-          - P3 (Medium): partial issue
-          - P4 (Low): minor issue
-
-          3. Suggest FIX:
-          Provide 2-3 clear actionable steps.
-
-          Keep response structured and concise.
-
-          You must also take actions:
-          
-          1. Add a comment to the issue using create_issue_note with your full analysis.
-          
-          2. Update the issue using update_issue:
-            - Add severity (P1, P2, etc.) in the title or description.
-          
-          3. Set task status using set_task_status:
-            - If severity is P1 → mark as "in_progress"
-            - Else → mark as "to_do"
-
-        # Available variables depend on your inputs:
-        # {{goal}} - The user's request
-        # {{context}} - Additional context from previous steps
-        user: |
-          {{goal}}
-        placeholder: history  # Maintains conversation context
-      unit_primitives: []
-      params:
-        timeout: 180  # Seconds before timeout
-
-  # Routers define the flow between components
-  # Use "end" as the final destination
-  routers:
-    - from: "opero_agent"
-      to: "end"
-
-    # Example: Multi-step flow
-    # - from: "fetch_data"
-    #   to: "process_data"
-    # - from: "process_data"
-    #   to: "my_agent"
-    # - from: "my_agent"
-    #   to: "end"
-
-  # Define the entry point for your flow
-  flow:
-    entry_point: "opero_agent"
-  
-  yaml_definition: |
-    name: OPERO Incident Triage Flow
-    description: AI agent for incident triage
-    version: v1
+  - name: create_issue
+    action: create_issue
+    title: "OPERO: Pipeline failure on {{ pipeline.ref }}"
+    description: "{{ steps.analyze_failure.output }}"
+    labels:
+      - incident
+      - opero-auto

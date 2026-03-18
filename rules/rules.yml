@@ -1,24 +1,27 @@
 rules:
-  - name: database_timeout
-    keywords: ["timeout", "db", "connection"]
-    failure: "Database Timeout"
-    severity: "P1"
-    fix:
-      - "Restart database service"
-      - "Check DB connections"
-
-  - name: auth_failure
-    keywords: ["auth", "unauthorized", "token"]
-    failure: "Authentication Error"
+  - failure: "Database timeout"
     severity: "P2"
+    keywords:
+      - "timeout"
+      - "database connection"
     fix:
-      - "Validate credentials"
-      - "Check token expiry"
+      - "Check database server health"
+      - "Restart connection pool"
 
-  - name: service_down
-    keywords: ["503", "unavailable"]
-    failure: "Service Unavailable"
+  - failure: "Service unavailable"
     severity: "P1"
+    keywords:
+      - "503"
+      - "service unavailable"
     fix:
-      - "Restart service"
-      - "Check server health"
+      - "Check service health"
+      - "Review load balancer logs"
+
+  - failure: "Authentication failure"
+    severity: "P2"
+    keywords:
+      - "authentication"
+      - "auth failure"
+    fix:
+      - "Check auth service"
+      - "Verify credentials and tokens"

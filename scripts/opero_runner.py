@@ -1,7 +1,10 @@
 import yaml
+import os
 
 def load_rules():
-    with open("rules/rules.yaml") as f:
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    rules_path = os.path.join(base_dir, "rules", "rules.yml")
+    with open(rules_path) as f:
         return yaml.safe_load(f)["rules"]
 
 def analyze_issue(text):
