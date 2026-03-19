@@ -25,3 +25,50 @@ rules:
     fix:
       - "Check auth service"
       - "Verify credentials and tokens"
+  - failure: "CI test failure"
+    severity: "P2"
+    keywords:
+      - "integration tests"
+      - "test failed"
+      - "tests failed"
+      - "assertion error"
+      - "failure in test suite"
+      - "integration"
+      - "node"
+      - "ubuntu"
+      - "build & test"
+      - "bump-versions"
+    fix:
+      - "Review failing test output for root cause"
+      - "Run tests locally to reproduce: npm test"
+      - "Check if Node version compatibility is causing the failure"
+      - "Review recent dependency bumps for breaking changes"
+
+  - failure: "Node.js compatibility failure"
+    severity: "P2"
+    keywords:
+      - "node 16"
+      - "node 18"
+      - "node 20"
+      - "npm"
+      - "yarn"
+      - "package.json"
+      - "bump versions"
+    fix:
+      - "Check Node.js version compatibility in package.json engines field"
+      - "Run: npm install and npm test locally with same Node version"
+      - "Review changelog of bumped dependencies for breaking changes"
+      
+  - failure: "Linting failure"
+    severity: "P3"
+    keywords:
+      - "lint"
+      - "eslint"
+      - "prettier"
+      - "code style"
+      - "linting"
+      - "deprecate"
+    fix:
+      - "Run: npm run lint --fix to auto-fix lint errors"
+      - "Review ESLint rules in .eslintrc config"
+      - "Check recently changed files for style violations"
