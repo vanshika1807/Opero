@@ -3,30 +3,31 @@ description: >
   Automatically triages pipeline failures, creates incidents,
   and notifies the team when a GitLab pipeline fails.
 
-on:
-  pipeline:
-    status:
-      - failed
+definition:
+  on:
+    pipeline:
+      status:
+        - failed
 
-steps:
-  - name: analyze_failure
-    agent: OPERO
-    prompt: |
-      A pipeline has just failed in this project.
-      Pipeline details: {{ pipeline.url }}
-      Branch: {{ pipeline.ref }}
-      Failed at: {{ pipeline.created_at }}
+  steps:
+    - name: analyze_failure
+      agent: OPERO
+      prompt: |
+        A pipeline has just failed in this project.
+        Pipeline details: {{ pipeline.url }}
+        Branch: {{ pipeline.ref }}
+        Failed at: {{ pipeline.created_at }}
 
-      Please analyze this as an incident:
-      1. Identify the failure type
-      2. Assign severity P1-P4
-      3. Suggest immediate fix steps
-      4. Generate a triage summary
+        Please analyze this as an incident:
+        1. Identify the failure type
+        2. Assign severity P1-P4
+        3. Suggest immediate fix steps
+        4. Generate a triage summary
 
-  - name: create_issue
-    action: create_issue
-    title: "OPERO: Pipeline failure on {{ pipeline.ref }}"
-    description: "{{ steps.analyze_failure.output }}"
-    labels:
-      - incident
-      - opero-auto
+    - name: create_issue
+      action: create_issue
+      title: "OPERO: Pipeline failure on {{ pipeline.ref }}"
+      description: "{{ steps.analyze_failure.output }}"
+      labels:
+        - incident
+        - opero-auto
