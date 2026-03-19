@@ -1,32 +1,43 @@
-# OPERO 🚀
+<!-- # OPERO 
+### Operational Incident Response & Orchestration Agent
 
-This is an AI-powered powered tool that helps the L1 and L2 support teams during issue triaging, RCA documantionation creation plus this agent can help the team in ahering to the SLA/SLO/SLI
+> **GitLab AI Hackathon 2026** - Built on Github Duo Agent Platform
 
----
-
-## 🧩 Problem
-
-L1/L2 support teams spend a good amount time in manually analyzing logs, identifying failure types, deciding severity & sometimes there can similar cases & issues that might have hanppened before but team is not able to recall it. This delays resolution and increases system downtime & MTTR
+This is an AI-powered powered tool that helps the L1 and L2 support teams during issue triaging, auto creating Github Issues & RCA documentation - all without human intervention.
 
 ---
 
-## 💡 Solution
+## Problem Statement
 
-OPERO is an AI agent that automates incident triage by:
-
-* Identifying failure type
-* Predicting severity (P1–P4)
-* gives the user a report, on what is wrong
-* plus it gives the proper documention & a guidance to adhere to the SLAs
+L1/L2 support teams spend a good amount time in-
+    * manually analyzing logs, identifying failure types
+    * deciding severity & sometimes there can similar cases , issues that might have hanppened before but team is not able to recall it.
+    * Along with that sometime while creating the RCAs the important key-points and factir are genrally missed.
+    * Sometime the team is not able to detect the problem and the actual root cause & sometime they to cinvey the same to us but they were not able to because of all of these containts 
+    
+    This delays resolution and increases system downtime & MTTR. 
+ 
+* Being a SRE by myself, these points that I have mentioned above are nothing my the pain-points that I usually hear from my peers who actually work in these L1/L2 support teams.
 
 ---
 
-## ⚙️ How it works
+## Solution Proposed
 
-1. The user tells OPERO about the problem
-2. OPERO analyzes the problem
-3. OPERO gives the user a report, on what is wrong
+OPERO watches your pipelines 24/7 and the moment something fails:
 
+1. **Detects** the failure automatically
+2. **Classifies** the failure type (DB timeout, auth error, CI failure, etc.)
+3. **Predicts severity** (P1 Critical -> P4 Low) with reasoning
+4. **Suggests fixes** with actionable steps
+5. **Creates a GitLab issue** automatically
+6. **Generates an RCA report** as a Wiki page
+7. **Shows everything** in a real-time web dashboard
+
+---
+
+## Architecture
+
+1. Github/GitLab  CI failure
 ---
 
 ## 📊 Example
@@ -70,4 +81,7 @@ The login API is not working and is giving a 500 error and a database timeout
 ✅ CI pipeline passed
 ✅ Demo ready
 
----
+--- -->
+
+
+### OPERO
