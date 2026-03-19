@@ -27,17 +27,19 @@ def get_failed_runs():
         return []
 
 def get_job_logs(run_id):
-    url = f"https://api.github.com/repos/{GITHUB_REPO}/actions/runs/{run_id}/jobs"
-    headers = {"Accept": "application/vnd.github+json"}
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        jobs = response.json().get("jobs", [])
-        failed = [j for j in jobs if j["conclusion"] == "failure"]
-        if failed:
-            # Return failed job details as a log string
-            job = failed[0]
-            steps_failed = [s["name"] for s in job.get("steps", []) if s.get("conclusion") == "failure"]
-            return f"Job '{job['name']}' failed at steps: {', '.join(steps_failed)}"
+    try:
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/actions/runs/{run_id}/jobs"
+        headers = {"Accept": "application/vnd.github+json"}
+        response = requests.get(url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            jobs = response.json().get("jobs", [])
+            failed = [j for j in jobs if j["conclusion"] == "failure"]
+            if failed:
+                job = failed[0]
+                steps_failed = [s["name"] for s in job.get("steps", []) if s.get("conclusion") == "failure"]
+                return f"Job '{job['name']}' failed at steps: {', '.join(steps_failed)}"
+    except Exception as e:
+        print(f"  Could not fetch logs: {e}")
     return ""
 
 def create_gitlab_issue(title, description):
@@ -135,13 +137,19 @@ def watch():
     print(f"OPERO watching {GITHUB_REPO} for real CI failures...")
     print("Checking every 60 seconds\n")
     while True:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Checking GitHub Actions...")
-        runs = get_failed_runs()
-        if runs:
-            for run in runs:
-                process_run(run)
-        else:
-            print("No new failures found.")
+        try:
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Checking GitHub Actions...")
+            runs = get_failed_runs()
+            if runs:
+                for run in runs:
+                    try:
+                        process_run(run)
+                    except Exception as e:
+                        print(f"  Error processing run: {e}")
+            else:
+                print("No new failures found.")
+        except Exception as e:
+            print(f"Connection error: {e} — retrying in 60s")
         print("Waiting 60 seconds...\n")
         time.sleep(60)
 

@@ -1,33 +1,53 @@
-name: OPERO Incident Flow
-description: >
-  Automatically triages pipeline failures, creates incidents,
-  and notifies the team when a GitLab pipeline fails.
+flow:
+  name: "OPERO Incident Flow"
+  description: "Automatically triages pipeline failures, creates incidents, and notifies the team when a GitLab pipeline fails."
+  public: true
 
-definition:
-  on:
-    pipeline:
-      status:
-        - failed
+  definition:
+    version: v1
+    environment: ambient
 
-  steps:
-    - name: analyze_failure
-      agent: OPERO
-      prompt: |
-        A pipeline has just failed in this project.
-        Pipeline details: {{ pipeline.url }}
-        Branch: {{ pipeline.ref }}
-        Failed at: {{ pipeline.created_at }}
+    components:
+      - name: "opero_triage"
+        type: AgentComponent
+        prompt_id: "triage_prompt"
+        inputs:
+          - "context:goal"
+        toolset:
+          - "create_issue"
+          - "create_issue_note"
+        ui_log_events:
+          - on_agent_final_answer
+          - on_tool_execution_success
 
-        Please analyze this as an incident:
-        1. Identify the failure type
-        2. Assign severity P1-P4
-        3. Suggest immediate fix steps
-        4. Generate a triage summary
+    prompts:
+      - prompt_id: "triage_prompt"
+        name: "OPERO Triage Prompt"
+        prompt_template:
+          system: |
+            You are OPERO, an expert incident triage assistant for L1/L2 support teams.
 
-    - name: create_issue
-      action: create_issue
-      title: "OPERO: Pipeline failure on {{ pipeline.ref }}"
-      description: "{{ steps.analyze_failure.output }}"
-      labels:
-        - incident
-        - opero-auto
+            Analyze the given failure context.
+
+            Respond ONLY in this format:
+
+            🚨 OPERO Incident Analysis
+
+            Failure Category:
+            Severity:
+            Root Cause:
+            Preventable:
+            Suggested Action:
+
+          user: |
+            {{goal}}
+          placeholder: history
+        params:
+          timeout: 180
+
+    routers:
+      - from: "opero_triage"
+        to: "end"
+
+    flow:
+      entry_point: "opero_triage"
