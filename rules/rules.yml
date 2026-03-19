@@ -58,7 +58,7 @@ rules:
       - "Check Node.js version compatibility in package.json engines field"
       - "Run: npm install and npm test locally with same Node version"
       - "Review changelog of bumped dependencies for breaking changes"
-      
+
   - failure: "Linting failure"
     severity: "P3"
     keywords:
@@ -72,3 +72,73 @@ rules:
       - "Run: npm run lint --fix to auto-fix lint errors"
       - "Review ESLint rules in .eslintrc config"
       - "Check recently changed files for style violations"
+  - failure: "API service down"
+    severity: "P1"
+    keywords:
+      - "503"
+      - "service unavailable"
+      - "http 503"
+      - "no healthy upstream"
+    fix:
+      - "Check service health endpoint immediately"
+      - "Review load balancer logs for upstream failures"
+      - "Scale up service instances if under heavy load"
+
+  - failure: "API response timeout"
+    severity: "P2"
+    keywords:
+      - "timeout"
+      - "slow response"
+      - "response time"
+      - "2000ms"
+      - "threshold"
+    fix:
+      - "Check service resource utilization"
+      - "Review recent deployments for performance regressions"
+      - "Increase timeout threshold if load has grown"
+
+  - failure: "High CPU usage"
+    severity: "P2"
+    keywords:
+      - "cpu critical"
+      - "cpu percent"
+      - "high cpu"
+    fix:
+      - "Identify CPU-intensive processes: top -c"
+      - "Check for runaway threads or infinite loops"
+      - "Scale horizontally if load is sustained"
+
+  - failure: "High memory usage"
+    severity: "P2"
+    keywords:
+      - "memory critical"
+      - "memory percent"
+      - "high memory"
+      - "out of memory"
+    fix:
+      - "Check for memory leaks in recent deployments"
+      - "Review heap dumps for large object allocations"
+      - "Restart service if memory is not being released"
+
+  - failure: "Database connection limit exceeded"
+    severity: "P1"
+    keywords:
+      - "db connections exceeded"
+      - "connection limit"
+      - "too many connections"
+      - "max connections"
+    fix:
+      - "Kill idle connections: SELECT pg_terminate_backend(pid)"
+      - "Increase max_connections in database config"
+      - "Add connection pooling (PgBouncer/HikariCP)"
+
+  - failure: "HTTP 500 server error"
+    severity: "P2"
+    keywords:
+      - "http 500"
+      - "500"
+      - "internal server error"
+    fix:
+      - "Check application logs for stack traces"
+      - "Review recent code deployments for bugs"
+      - "Roll back last deployment if error started recently"

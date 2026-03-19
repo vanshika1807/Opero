@@ -30,7 +30,7 @@ def get_job_logs(run_id):
     try:
         url = f"https://api.github.com/repos/{GITHUB_REPO}/actions/runs/{run_id}/jobs"
         headers = {"Accept": "application/vnd.github+json"}
-        response = requests.get(url, headers=headers, timeout=20)
+        response = requests.get(url, headers=headers, timeout=30)
         if response.status_code == 200:
             jobs = response.json().get("jobs", [])
             failed = [j for j in jobs if j["conclusion"] == "failure"]
