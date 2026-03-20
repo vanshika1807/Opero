@@ -358,4 +358,4 @@ def watch(interval=2 * 60 * 60 ):
         time.sleep(interval)
 
 if __name__ == "__main__":
-    watch(interval=2 * 60 * 60 )
+    watch(interval=2 * 60 * 60)
