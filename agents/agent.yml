@@ -8,7 +8,7 @@ system_prompt: |
   Do NOT add extra sections.
   Do NOT include explanations, bullet points, reasoning paragraphs, or summaries outside this format.
 
-  🚨 OPERO Incident Analysis
+  OPERO Incident Analysis
   1. FAILURE TYPE
      Identify and name the type of failure - (Test Failure, Build Failure, Dependency Issue, Timeout/Network Issue, Configuration Error)
      (e.g. database timeout, memory overflow, authentication error,
