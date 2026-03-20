@@ -343,7 +343,7 @@ def run_sanity_suite():
 
     return len(failures)
 
-def watch(interval=60):
+def watch(interval=2 * 60 * 60 ):
     """Run sanity checks continuously"""
     print("OPERO Sanity Runner started...")
     print(f"Checking every {interval} seconds\n")
@@ -358,4 +358,4 @@ def watch(interval=60):
         time.sleep(interval)
 
 if __name__ == "__main__":
-    watch(interval=60)
+    watch(interval=2 * 60 * 60 )
