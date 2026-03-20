@@ -1,53 +1,49 @@
-flow:
-  name: "OPERO Incident Flow"
-  description: "Automatically triages pipeline failures, creates incidents, and notifies the team when a GitLab pipeline fails."
-  public: true
+name: "OPERO Incident Flow"
+description: "Automatically triages pipeline failures, creates incidents, and notifies the team when a GitLab pipeline fails."
+public: true
+definition:
+  version: v1
+  environment: ambient
 
-  definition:
-    version: v1
-    environment: ambient
+  components:
+    - name: "opero_triage"
+      type: AgentComponent
+      prompt_id: "triage_prompt"
+      inputs:
+        - "context:goal"
+      toolset:
+        - "create_issue"
+        - "create_issue_note"
+      ui_log_events:
+        - on_agent_final_answer
+        - on_tool_execution_success
 
-    components:
-      - name: "opero_triage"
-        type: AgentComponent
-        prompt_id: "triage_prompt"
-        inputs:
-          - "context:goal"
-        toolset:
-          - "create_issue"
-          - "create_issue_note"
-        ui_log_events:
-          - on_agent_final_answer
-          - on_tool_execution_success
+  prompts:
+    - prompt_id: "triage_prompt"
+      name: "OPERO Triage Prompt"
+      prompt_template:
+        system: |
+          You are OPERO, an expert incident triage assistant for L1/L2 support teams.
 
-    prompts:
-      - prompt_id: "triage_prompt"
-        name: "OPERO Triage Prompt"
-        prompt_template:
-          system: |
-            You are OPERO, an expert incident triage assistant for L1/L2 support teams.
+          Analyze the given failure context and respond in this format:
 
-            Analyze the given failure context.
+          OPERO Incident Analysis
 
-            Respond ONLY in this format:
+          Failure Category:
+          Severity:
+          Root Cause:
+          Preventable:
+          Suggested Action:
+        user: |
+          {{goal}}
+        placeholder: history
+      unit_primitives: []
+      params:
+        timeout: 180
 
-            🚨 OPERO Incident Analysis
+  routers:
+    - from: "opero_triage"
+      to: "end"
 
-            Failure Category:
-            Severity:
-            Root Cause:
-            Preventable:
-            Suggested Action:
-
-          user: |
-            {{goal}}
-          placeholder: history
-        params:
-          timeout: 180
-
-    routers:
-      - from: "opero_triage"
-        to: "end"
-
-    flow:
-      entry_point: "opero_triage"
+  flow:
+    entry_point: "opero_triage"
