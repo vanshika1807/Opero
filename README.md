@@ -1,7 +1,7 @@
-<!-- # OPERO 
+# OPERO 
 ### Operational Incident Response & Orchestration Agent
 
-> **GitLab AI Hackathon 2026** - Built on Github Duo Agent Platform
+**GitLab AI Hackathon 2026** - Built on Github Duo Agent Platform
 
 This is an AI-powered powered tool that helps the L1 and L2 support teams during issue triaging, auto creating Github Issues & RCA documentation - all without human intervention.
 
@@ -25,36 +25,13 @@ L1/L2 support teams spend a good amount time in-
 
 OPERO watches your pipelines 24/7 and the moment something fails:
 
-1. **Detects** the failure automatically
-2. **Classifies** the failure type (DB timeout, auth error, CI failure, etc.)
-3. **Predicts severity** (P1 Critical -> P4 Low) with reasoning
-4. **Suggests fixes** with actionable steps
-5. **Creates a GitLab issue** automatically
-6. **Generates an RCA report** as a Wiki page
-7. **Shows everything** in a real-time web dashboard
-
----
-
-## Architecture
-
-1. Github/GitLab  CI failure
----
-
-## 📊 Example
-
-**Input:**
-The login API is not working and is giving a 500 error and a database timeout
-
-**Output:**
-
-* 🔍 Failure: Database Timeout
-* ⚠️ Severity: P1 (Critical)
-* 🧠 Root Cause: Connection pool exhaustion
-* 🛠️ Fix:
-
-  * Check DB connectivity
-  * Restart service
-  * Optimize queries
+1. **Detects** — monitors API endpoints, CPU usage, memory, DB connections every 60 seconds
+2. **Classifies** — identifies the failure type from 15+ known patterns (service down, DB timeout, OOM, auth failure, etc.)
+3. **Predicts severity** — assigns P1 (Critical) to P4 (Low) with reasoning
+4. **Emails the team** — sends a beautiful HTML alert to L1/L2 engineers instantly
+5. **Creates a GitLab issue** — pre-triaged, labelled, and ready to assign
+6. **Generates an RCA report** — auto-publishes a Root Cause Analysis as a GitLab Wiki page, with a direct link in the email
+7. **Shows everything live** — real-time web dashboard at `localhost:5000`
 
 ---
 
@@ -74,14 +51,5 @@ The login API is not working and is giving a 500 error and a database timeout
 
 ---
 
-## 📌 Status
-
-✅ Agent implemented
-✅ Flow configured
-✅ CI pipeline passed
-✅ Demo ready
-
---- -->
-
-
-### OPERO
+## Watch the Youtube Video below to know more-
+ * 
