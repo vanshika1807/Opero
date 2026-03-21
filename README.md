@@ -15,7 +15,7 @@ L1/L2 support teams spend a good amount time in-
     * Along with that sometime while creating the RCAs the important key-points and factir are genrally missed.
     * Sometime the team is not able to detect the problem and the actual root cause & sometime they to cinvey the same to us but they were not able to because of all of these containts 
     
-    This delays resolution and increases system downtime & MTTR. 
+* This delays resolution and increases system downtime & MTTR. 
  
 * Being a SRE by myself, these points that I have mentioned above are nothing my the pain-points that I usually hear from my peers who actually work in these L1/L2 support teams.
 
@@ -35,7 +35,7 @@ OPERO watches your pipelines 24/7 and the moment something fails:
 
 ---
 
-## 🚀 Impact
+## Impact
 
 * It saves time when trying to figure out what is wrong
 * Speeds up incident resolution
@@ -43,7 +43,7 @@ OPERO watches your pipelines 24/7 and the moment something fails:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * GitLab Duo Agent Platform
 * It uses YAML to configure the agent and the flow
