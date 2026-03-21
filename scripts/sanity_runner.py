@@ -177,10 +177,14 @@ def send_email_alert(service, analysis, message, metrics):
         </table>
       </div>
 
-      <div style="text-align: center;">
+      <div style="text-align: center; margin-top: 20px;">
         <a href="https://gitlab.com/gitlab-ai-hackathon/participants/6273024/-/issues"
-           style="background: #7b1fa2; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+           style="background: #7b1fa2; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin: 6px;">
           View GitLab Issues
+        </a>
+        <a href="https://gitlab.com/gitlab-ai-hackathon/participants/6273024/-/wikis"
+           style="background: #1d9e75; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin: 6px;">
+          View RCA Report
         </a>
       </div>
     </div>
