@@ -12,8 +12,8 @@ This is an AI-powered powered tool that helps the L1 and L2 support teams during
 L1/L2 support teams spend a good amount time in-
     * manually analyzing logs, identifying failure types
     * deciding severity & sometimes there can similar cases , issues that might have hanppened before but team is not able to recall it.
-    * Along with that sometime while creating the RCAs the important key-points and factir are genrally missed.
-    * Sometime the team is not able to detect the problem and the actual root cause & sometime they to cinvey the same to us but they were not able to because of all of these containts 
+    * Along with that sometime while creating the RCAs the important key-points and facts are genrally missed.
+   
     
 * This delays resolution and increases system downtime & MTTR. 
  
